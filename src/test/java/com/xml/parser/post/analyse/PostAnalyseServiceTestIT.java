@@ -15,7 +15,6 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.client.WebClient;
 
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -29,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class PostAnalyseServiceTestIT {
 
     private static final String URL = "https://s3-eu-west-1.amazonaws.com/merapar-assessment/arabic-posts.xml";
-    public static final String BAD_URL = "https://google.com";
+    private static final String BAD_URL = "https://google.com";
 
     @MockBean
     WebClient mockWebClient;

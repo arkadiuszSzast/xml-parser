@@ -14,19 +14,19 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.xml.bind.JAXBException;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 class PostAnalyseServiceTest {
 
-    public static final String URL = "";
+    public static final String URL = "https://google.com";
     @Mock
     private PostGetService postGetService;
     @Mock
@@ -47,13 +47,14 @@ class PostAnalyseServiceTest {
         var postAnalyse = postAnalyseService.getStatistics(analyseParams).block();
 
         //assert
+        verify(postGetService).getPosts(analyseParams);
         assertAll(
                 () -> assertThat(postAnalyse.getAnalyseDate()).isEqualToIgnoringSeconds(LocalDateTime.now()),
                 () -> assertThat(postAnalyse.getDetails().getTotalPosts()).isEqualTo(80),
                 () -> assertThat(postAnalyse.getDetails().getTotalAcceptedPosts()).isEqualTo(7),
                 () -> assertThat(postAnalyse.getDetails().getAvgScore()).isEqualTo(2.975d),
-                () -> assertThat(postAnalyse.getDetails().getFirstPost()).isEqualToIgnoringHours(LocalDateTime.of(2015,7,14,0,0)),
-                () -> assertThat(postAnalyse.getDetails().getLastPost()).isEqualToIgnoringHours(LocalDateTime.of(2015,9,14,0,0))
+                () -> assertThat(postAnalyse.getDetails().getFirstPost()).isEqualToIgnoringHours(LocalDateTime.of(2015, 7, 14, 0, 0)),
+                () -> assertThat(postAnalyse.getDetails().getLastPost()).isEqualToIgnoringHours(LocalDateTime.of(2015, 9, 14, 0, 0))
         );
     }
 

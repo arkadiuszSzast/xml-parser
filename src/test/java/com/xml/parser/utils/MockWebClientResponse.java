@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 public class MockWebClientResponse {
 
-    public static WebClient getWebClientMock(WebClient mockWebClient, ByteArrayResource resp) {
+    public static void getWebClientMock(WebClient mockWebClient, ByteArrayResource resp) {
         final var uriSpecMock = Mockito.mock(WebClient.RequestHeadersUriSpec.class);
         final var acceptSpecMock = Mockito.mock(WebClient.RequestHeadersSpec.class);
         final var retrieveSpecMock = Mockito.mock(WebClient.RequestHeadersSpec.class);
@@ -24,6 +24,5 @@ public class MockWebClientResponse {
         when(responseSpecMock.bodyToMono(ArgumentMatchers.<Class<ByteArrayResource>>notNull()))
                 .thenReturn(Mono.just(resp));
 
-        return mockWebClient;
     }
 }
