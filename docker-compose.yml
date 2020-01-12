@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+
+  xml-parser:
+    image: szastarek/xml-parser
+    ports:
+    - "8080:8080"
+    container_name: xml-parser
+    restart: on-failure
